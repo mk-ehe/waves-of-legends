@@ -12,7 +12,7 @@ def write(text: str):
 def write_multiple(*args):
     for i in args:
         write(f"{i}\n")
-        sleep(1)
+        sleep(constants.TYPE_SPEED)
 
 
 def fight(player, enemy):
