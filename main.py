@@ -1,12 +1,13 @@
+import constants
 from character import Character
 from time import sleep
 import utils
 
-sett = Character('Sett', 100, 20, 70)
-viego = Character('Viego', 90, 25, 80)
-sylas = Character('Sylas', 70, 30, 90)
-samira = Character('Samira', 85, 25, 85)
-thresh = Character('Thresh', 120, 15, 75)
+sett = Character('Sett', constants.SETT["HP"], constants.SETT["DMG"], constants.SETT["MP"])
+viego = Character('Viego', constants.VIEGO["HP"], constants.VIEGO["DMG"], constants.VIEGO["MP"])
+sylas = Character('Sylas', constants.SYLAS["HP"], constants.SYLAS["DMG"], constants.SYLAS["MP"])
+samira = Character('Samira', constants.SAMIRA["HP"], constants.SAMIRA["DMG"], constants.SAMIRA["MP"])
+thresh = Character('Thresh', constants.THRESH["HP"], constants.THRESH["DMG"], constants.THRESH["MP"])
 
 character_list = [sett, viego, sylas, samira, thresh]
 pick_list = [champ.name for champ in character_list]
@@ -29,12 +30,8 @@ while True:
         summoner: Character = character_list[summoner_idx]  # Character object
         break
 
-enemies = [Character('Teemo'),
-           Character('Evelynn', ability_mana_cost=45, ult_mana_cost=75),
-           Character('Twitch', ability_mana_cost=65, ult_mana_cost=95),
-           Character('Illaoi', ability_mana_cost=85, ult_mana_cost=125),
-           Character('Yasuo', ability_mana_cost=110, ult_mana_cost=170)
-           ]
+enemies = [Character(name=champ, ability_mana_cost=constants.ENEMY_CHARACTERS[champ]['Ability_MP'],
+                     ult_mana_cost=constants.ENEMY_CHARACTERS[champ]['Ult_MP']) for champ in constants.ENEMY_CHARACTERS]
 
 for enemy in enemies:
     summoner.ability_mana_cost, summoner.ult_mana_cost = enemy.ability_mana_cost, enemy.ult_mana_cost
