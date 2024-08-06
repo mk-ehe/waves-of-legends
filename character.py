@@ -1,4 +1,6 @@
 from random import randint
+
+import constants
 import utils
 
 
@@ -30,27 +32,27 @@ class Character:
         return f'\n{self.name}\nHealth:{round(self.health)} Damage:{round(self.damage)} Mana:{round(self.mana)}'
 
     def mana_and_health_regen(self, my_health, my_mana):
-        self.health += ((my_health - self.health) * 0.1)
-        self.mana += ((my_mana - self.mana) * 0.31)
+        self.health += ((my_health - self.health) * constants.HP_REGEN)
+        self.mana += ((my_mana - self.mana) * constants.MP_REGEN)
 
     def get_hit_by_basic_attack(self, damage):
-        self.health -= (damage * 1.1)
+        self.health -= (damage * constants.BASIC_ATTACK)
 
     def get_hit_by_ability(self, damage):
-        self.health -= (damage * 1.4)
+        self.health -= (damage * constants.ABILITY)
 
     def get_hit_by_ult(self, damage):
-        self.health -= (damage * 1.9)
+        self.health -= (damage * constants.ULT)
 
     def on_level_stats_growth(self, mode='player'):
         """Different stats scaling for player/enemy"""
-        self.update_basic_health *= 1.43 if mode == 'player' else 1.51
-        self.update_basic_damage *= 1.34 if mode == 'player ' else 1.44
-        self.update_basic_mana *= 1.32 if mode == 'player' else 1.35
+        self.update_basic_health *= constants.HP_LEVELUP_PLAYER if mode == 'player' else constants.HP_LEVELUP_ENEMY
+        self.update_basic_damage *= constants.DMG_LEVELUP_PLAYER if mode == 'player ' else constants.DMG_LEVELUP_ENEMY
+        self.update_basic_mana *= constants.MP_LEVELUP_PLAYER if mode == 'player' else constants.MP_LEVELUP_ENEMY
         self.stats_update()
 
     def generate_stats(self):
-        self.update_basic_health = randint(70, 110)
-        self.update_basic_damage = randint(15, 25)
-        self.update_basic_mana = randint(55, 90)
+        self.update_basic_health = randint(constants.HP_GEN[0], constants.HP_GEN[1])
+        self.update_basic_damage = randint(constants.DMG_GEN[0], constants.DMG_GEN[1])
+        self.update_basic_mana = randint(constants.MP_GEN[0], constants.MP_GEN[1])
         self.stats_update()
