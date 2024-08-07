@@ -31,22 +31,26 @@ def fight(player, enemy):
 
         while True:
             type_of_attack = input(f'\nChoose your attack {constants.ATTACK_TYPES[available_attacks]}: ').upper()
-            if type_of_attack in ['B', 'A', 'U']:
+            if type_of_attack not in ['B', 'A', 'U']:
+                continue
+
+            if type_of_attack == 'U' and player.mana >= player.ult_mana_cost:
+                enemy.get_hit_by_ult(damage=player.damage)
+                player.mana -= player.ult_mana_cost
+                print(f'\nYou have chosen: Ult -{player.ult_mana_cost} mana')
                 break
 
-        if type_of_attack == 'U' and player.mana >= player.ult_mana_cost:
-            enemy.get_hit_by_ult(damage=player.damage)
-            player.mana -= player.ult_mana_cost
-            print(f'\nYou have chosen: Ult -{player.ult_mana_cost} mana')
+            elif type_of_attack == 'A' and player.mana >= player.ability_mana_cost:
+                enemy.get_hit_by_ability(damage=player.damage)
+                player.mana -= player.ability_mana_cost
+                print(f'\nYou have chosen: Ability -{player.ability_mana_cost} mana')
+                break
 
-        elif type_of_attack == 'A' and player.mana >= player.ability_mana_cost:
-            enemy.get_hit_by_ability(damage=player.damage)
-            player.mana -= player.ability_mana_cost
-            print(f'\nYou have chosen: Ability -{player.ability_mana_cost} mana')
-
-        else:
-            enemy.get_hit_by_basic_attack(damage=player.damage)
-            print(f'\nYou have chosen: Basic Attack')
+            elif type_of_attack == 'B':
+                enemy.get_hit_by_basic_attack(damage=player.damage)
+                print(f'\nYou have chosen: Basic Attack')
+                break
+            continue
 
         sleep(0.5)
         enemy.stats()
