@@ -12,11 +12,9 @@ thresh = Character('Thresh', constants.THRESH["HP"], constants.THRESH["DMG"], co
 character_list = [sett, viego, sylas, samira, thresh]
 pick_list = [champ.name for champ in character_list]
 
-
 for champ in character_list:
     """Display all champs' stats"""
     champ.stats()
-
 
 while True:
     """Loop until valid name is given"""
