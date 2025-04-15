@@ -13,7 +13,7 @@ class character:
         '''character creator'''
         self.name = name
         self.health = health
-        self.damage = damagea
+        self.damage = damage
         self.mana = mana
 
         self.update_basic_health = health
