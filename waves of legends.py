@@ -169,26 +169,8 @@ def fight(name,ability_cost,ult_cost):
             break
         
         enemy_attack = randint(1,2)
-        first_attack = randint(1,2)
 
         sleep(1)
-
-        if first_attack == 1:
-
-            if enemy.mana >= ult_cost:
-                summoner.ult(enemy.damage)
-                enemy.mana = enemy.mana - ult_cost
-                print(f'\n{name} has chosen: Ult -{ult_cost} mana')
-                sleep(0.5)
-
-        elif first_attack == 2:
-
-            if enemy.mana >= ult_cost:
-                summoner.ability(enemy.damage)
-                enemy.mana = enemy.mana - ability_cost
-                print(f'\n{name} has chosen: Ability -{ability_cost} mana')
-                sleep(0.5)
-
 
         if enemy_attack == 1:
 
@@ -198,17 +180,23 @@ def fight(name,ability_cost,ult_cost):
 
         elif enemy_attack == 2:
 
-            if enemy.mana < ability_cost:
-                summoner.basic_attack(enemy.damage)
-                print(f'\n{name} has chosen: Basic Attack')
+            if enemy.mana >= ult_cost:
+                summoner.ult(enemy.damage)
+                enemy.mana = enemy.mana - ult_cost
+                print(f'\n{name} has chosen: Ult -{ult_cost} mana')
                 sleep(0.5)
 
-            else:
+            elif enemy.mana >= ability_cost:
                 summoner.ability(enemy.damage)
                 enemy.mana = enemy.mana - ability_cost
                 print(f'\n{name} has chosen: Ability -{ability_cost} mana')
                 sleep(0.5)
-
+            
+            elif enemy.mana < ability_cost:
+                summoner.basic_attack(enemy.damage)
+                print(f'\n{name} has chosen: Basic Attack')
+                sleep(0.5)
+    
         enemy.stats()
         summoner.stats()
 
